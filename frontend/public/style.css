@@ -1,0 +1,266 @@
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+h1 {
+    display: flex; 
+    justify-content: center;
+    color: #4c8ff4;
+    position:absolute;
+
+}
+body {
+    font-size: 1.8rem;
+    font-family: sans-serif;
+}
+  
+textarea {
+    min-width: 50px;
+    width:100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    font-family: sans-serif;
+    color: rgba(0, 0, 0, 0.75);
+        
+}
+.textareaSystems{
+    aspect-ratio: 6 /4;
+}
+
+div {
+    font-family: sans-serif;
+}
+   
+
+input[type=text]{
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #f8f8f8;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+li {
+    display: list-item;
+    text-align: match-parent;
+    list-style: none;
+}
+
+
+/* buttons */
+.whitebutton {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px
+}
+.blue-detailbutton {
+    background-color: white;
+    color: #4c8ff4;
+    border: 2px solid #4c8ff4;
+}
+
+.blue-detailbutton:hover {
+    background-color: #4c8ff4;
+    color:white
+}
+
+.green-detailbutton {
+      background-color: white;
+      color: #209a02;
+      border: 2px solid #209a02;
+}
+
+.green-detailbutton:hover {
+    background-color: #209a02;
+    color:white
+}
+
+.red-detailbutton {
+    background-color: white;
+    color:  #ba1717;
+    border: 2px solid  #ba1717;
+}
+
+.red-detailbutton:hover {
+    background-color: #ba1717;
+    color:white
+}
+
+.orange-detailbutton{
+    background-color: white;
+    color:   #e4831d;
+    border: 2px solid   #e4831d;
+}
+.orange-detailbutton:hover {
+    background-color: #e4831d;
+    color:white
+}
+
+.red-permanentbutton{
+    background-color: #ba1717;
+    color:white;
+    border: 2px solid  #ba1717;
+}
+
+.green-permanentbutton{
+    background-color: #209a02;
+    color:white;
+    border: 2px solid #209a02;
+}
+
+.blue-permanentbutton{
+    background-color: #4c8ff4;
+    color:white;
+    border: 2px solid #4c8ff4;
+}
+
+.orange-permanentbutton{
+    background-color: #e4831d;
+    color:white;
+    border: 2px solid #e4831d
+}
+
+.smallbutton{
+    padding: 7px 14px;
+}
+
+.smallerbutton{
+    margin: 0px 2px;
+    padding: 0px 0px;
+    width: 3.1rem;
+    text-align: center;
+    font-size: 15px;
+}
+
+.smallestbutton{
+    padding: 3px 6px;
+}
+
+.quantifierbutton{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.smallquantifierbutton{
+    width: 30px;
+    padding: 7px 10px;
+}
+
+.marginLeftButton{
+    margin-left:10px
+}
+
+.row {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+.row  > [class^="col-"], .row  > [class^=" col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.mainContent{
+    padding: 0px 15px ;
+}
+.view-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#example_select{
+    margin:15px 0px
+}
+
+
+/* Container */
+
+.systemContainerSquareDiv {
+    width:350px;
+    height:350px;
+    border-radius: 4px; 
+    float:left; 
+    margin-right: 10px; 
+    justify-content: center; 
+}
+
+.quantifiedSys{
+    width: 350px;
+    border-radius: 4px;  
+    border: 2px solid #ccc; 
+    float:left; 
+    margin: 10px 5px; 
+}
+
+.proph{
+    width: 150px;
+    border-radius: 4px;  
+    border: 2px solid #ccc; 
+    float:left; 
+    margin: 10px 5px; 
+}
+
+.prophecySys{
+    justify-content: center; 
+    width: auto;
+    padding: auto
+}
+
+.centerButtonDiv{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.universallyQuantifiedSys{
+    border :2px solid#4c8ff4;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.LTLAutomaton{
+    display:grid;
+    width:100%;
+    aspect-ratio:1/1;
+} 
+
+.systemContainer {
+    width: 100%; 
+    display: flex; 
+    overflow-x:auto;
+    justify-content: safe center; /* does not work in all Browsern */
+}
+
+.headline {
+    display:flex; justify-content: center;position:relative
+}
+
+.headlineFirstDiv{
+    margin-left:15px; margin-right:auto; margin-top:15px;
+}
+
+.headlineSecondDiv{
+    float: right; margin-right: 15px; margin-left:auto; margin-top: 15px;
+}
+
+.LTLformula{
+    margin-left: .5rem!important;margin-right: auto!important;
+}

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HyGaViz</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+    <script type="text/javascript" src="https://unpkg.com/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.14.7/dist/umd/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape-popper@1.0.4/cytoscape-popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@4.0.1/umd/index.all.min.js"></script>
+   
+    <script src="./buttonHandler.js"></script>
+    <script src="./graph.js"></script>
+    <script src="./drawSystem.js"></script>
+    <script src="./drawLTL.js"></script>
+    <script src="./loadData.js"></script>
+    <script src="./modal.js"></script>
+
+    <script src="./automaton.js"></script>
+    <script src="./verificationTask.js"></script>
+    <script src="./verificationHelpFunctions.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="card.css">
+    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']],
+                             displayMath: [['\\[','\\]'], ['$$','$$']]}});
+      </script>
+      <script id="mathjax" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      </script>
+</head>
+
+<body>
+    <!-- buttons -->
+    <div class="headline">
+        <div class="headlineFirstDiv" >
+            <button id="loadExampleButton" class="whitebutton blue-detailbutton" title="Load a stored example" >
+                <i class="fa-regular fa-folder-open"></i>
+                Load Examples
+            </button>
+        </div>
+        <h1 >HyGaViz</h1>
+        <!-- <button class="whitebutton red-detailbutton" id="reset_all" > reset everything </button> -->
+        <div class="headlineSecondDiv">
+            <button class="whitebutton green-detailbutton " id="verify" title="Verify the loaded data" > 
+                <!-- <i class="fa-solid fa-share-nodes"></i> -->
+                Verify
+                <i class="fa-solid fa-angles-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+
+
+    <!-- Load Example Modal -->
+    <div id="loadExampleModal" class="modal" >
+        <!-- Modal content -->
+        <div class="modal-content" >
+            <!-- Modal header -->
+            <div class="modal-header">
+                <span  class="close" id="loadExampleClose">&times;</span>
+                <h3>Loading Examples</h3>
+            </div>
+            <!-- Modal body -->
+            <div id="examples" class="modal-body">
+                
+                <p>Select an example:</p>   
+                <form >
+                    <select id="example_select"  class="form-control" >                     
+                    </select>
+                    <input type="button" class="whitebutton blue-permanentbutton" value="Load" onclick="loadExampleFromModal()">
+                    <input type="button" class="whitebutton red-permanentbutton" value="Close" onclick="closeExamplemodal()">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modify DPA Modal -->
+    <div id="modalDPA" class="modal" >
+        <!-- Modal content -->
+        <div class="modal-content" >
+            <!-- Modal header -->
+            <div class="modal-header">
+                <span class="close" id="closeDPA">&times;</span>
+                <h3>Input Field for Automaton</h3>
+            </div>
+            <!-- Modal Body -->
+            <div id="DPAmodal-body" class="modal-body" >
+                <textarea id="LTLField" name="LTL formula" rows="1" cols="50">G ("a"_A <->  "b"_B)</textarea>
+                <button class="whitebutton blue-permanentbutton" id="send_LTL_formula">
+                    Create Automaton
+                </button>  
+                <input type="button" class="whitebutton red-permanentbutton" value="Close" onclick="closeDPAmodal()"> 
+
+            </div>
+        </div>
+    </div>
+    <div id="modalProphecies" class="modal" >
+        <!-- Modal content -->
+        <div class="modal-content" >
+            <!-- Modal header -->
+            <div class="modal-header">
+                <span class="close" id="closeProphecies">&times;</span>
+                <h3>Input Field for Prophecies</h3>
+            </div>
+
+            
+            <!-- Modal Body -->
+            <div id="Propheciesmodal-body" class="modal-body" >
+                <!-- <div style="margin-top: auto; margin-bottom: auto;"> Name:
+                    <input id="systemNameProphecies" type="text" rows="1" cols="50" value="P1"></input>
+                </div>  -->
+                
+                <br>
+                <textarea id="LTLFieldProphecies" rows="1" cols="50"></textarea>
+                <!-- <button class="whitebutton blue-permanentbutton" id="send_Prophecies">
+                    Create Prophecy
+                </button>  --> 
+                <input type="button" class="whitebutton blue-permanentbutton" value="Create Prophecy" onclick="sendProphecy()"> 
+                <input type="button" class="whitebutton red-permanentbutton" value="Close" onclick="closePropheciesmodal()"> 
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add System Modal -->
+    <div id="modalSystems" class="modal" >
+        <!-- Modal content -->
+        <div class="modal-content" >
+            <!-- Modal header -->
+            <div class="modal-header">
+                <span class="close" id="closeSystems">&times;</span>
+                <h3>Input Field for Systems</h3>
+            </div>
+
+            <!-- Modal main content -->
+            <div id="Systemmodal-body" class="modal-body" >
+                <div style="justify-content: space-between; display:flex; " >
+                    <div style="margin-top: auto; margin-bottom: auto;"> Name:
+                        <input id="systemName" type="text" rows="1" cols="50"></input>
+                    </div> 
+                    <div> Quantifier:
+                        <input id="quantifierButtonModal"type="button" class="whitebutton blue-permanentbutton smallquantifierbutton" value= "&forall;" onclick=quantifierButtonFunctionality()> 
+                    </div>
+                </div>
+                
+                   
+                
+                <br>
+            
+            <!-- Textarea for Systems-->
+                <textarea id="inputField" name="name" class="textareaSystems">
+aps "a" "b"
+init 0
+
+State: 0 {}
+1
+
+State: 1 {1}
+1 2
+
+State: 2 {0}
+3
+
+State: 3 {0 1}
+3 0
+                </textarea>
+
+                <button class="whitebutton blue-permanentbutton" id="create_system">
+                    Create new system                      
+                </button>
+                <input type="button" class="whitebutton red-permanentbutton" value="Close" onclick="closeSystemModal()"> 
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+
+    <!-- Main Content-->
+    <div class="mainContent">
+        <div class="row">
+
+            <div class="col-md-3" >
+                <div class="view-container">
+                    <!-- DPA Card -->
+                    <div class="card">
+                        <!-- DPA Header -->
+                        <div class="card-header">
+                            <li class="cardTitle" id="DPACardTitle">Deterministic Parity Automaton</li>
+                            <button class="whitebutton blue-detailbutton smallerbutton marginLeftButton" id="dpaModalButton"  title="Update the automaton">
+                                <i class="fa-solid fa-pencil"></i>
+                            </button>
+                            <button class="whitebutton red-detailbutton smallerbutton"  id="reset_ltl" title="Remove the automaton">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <!-- DPA Content -->
+                        
+                        <!-- <div id="LTLautomaton" class="LTLAutomaton"></div>  -->
+                        <div id="LTLautomaton" class="LTLAutomaton"></div> 
+                        <!-- <div id="tableDPA"></div> -->
+                    </div>
+                </div> 
+
+
+                <div  class="view-container">
+                    <!-- Information Card -->
+                    <div class="card">
+                        <div  class="card-header">
+                            <li class="cardTitle" id="tableDPATitle" >Formula
+                            </li>
+                            <li id="LTLformula"style="text-align: center;display: inline-block; text-align: center;
+                            text-decoration: none;
+                            display: inline-block;" id="LTLformula"></li>
+                           
+                           
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div  class="view-container explainationTable" id="explainationTableDPA">
+                    <!-- Information Card -->
+                    <div class="card">
+                        <div  class="card-header">
+                            <li class="cardTitle" >Edge Legend for Automaton</li>
+                        </div>
+                        <div style="overflow-x:auto;" id="tableDPA"></div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div class="col-md-9">
+                <div class="view-container">
+                     <!-- Systems Card -->
+                    <div class="card" >
+                        <!-- Systems Header -->
+                        <div class="card-header" >
+                            <div class="cardTitle">Systems</div>
+
+                            <button id="systemsModalButton" class="whitebutton blue-detailbutton smallerbutton" title="Add a new system">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button class="whitebutton red-detailbutton smallerbutton"  id="reset_systems" title="Remove all systems">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+
+                        <!-- Systems Content -->
+                        <div class="flex-container" id="graphs" ></div>
+                    </div>
+                </div>
+
+                <div class="view-container">
+                     <!-- Systems Card -->
+                    <div class="card" >
+                        <!-- Systems Header -->
+                        <div class="card-header" >
+                            <div class="cardTitle">Prophecies</div>
+
+                            <button id="propheciesModalButton" class="whitebutton blue-detailbutton smallerbutton" title="Add a new prophecy">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button class="whitebutton red-detailbutton smallerbutton"  id="reset_prophecies" title="Remove all prophecies">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+
+                        <!-- Systems Content -->
+                        <div class="flex-container" id="prophecies" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Button Handler  -->
+    <script>
+        const sendBtnLTL = document.getElementById("send_LTL_formula") 
+        const inputFieldLTL = document.getElementById("LTLField") 
+        const LTLautomaton = document.getElementById("LTLautomaton");
+        sendBtnLTL.addEventListener('click', sendLTL);
+        
+    </script>
+
+    <script>
+        const sendBtnSystem = document.getElementById("create_system") 
+        sendBtnSystem.addEventListener('click', sendSystem); 
+    </script>
+    
+
+    <script>
+        const sendBtnVerify = document.getElementById("verify") 
+        sendBtnVerify.addEventListener('click', sendVerificationStrategy); 
+    </script>
+
+    <script>
+        const sendBtnResetSystems= document.getElementById("reset_systems") 
+        sendBtnResetSystems.addEventListener('click', resetSystems); 
+    </script>
+
+    <script>
+        const sendBtnResetLTL= document.getElementById("reset_ltl") 
+        sendBtnResetLTL.addEventListener('click', resetLTL); 
+    </script>
+    <script>
+        const sendBtnResetProphecies= document.getElementById("reset_prophecies") 
+        sendBtnResetProphecies.addEventListener('click', resetProphecies); 
+    </script>
+
+    <!-- initialize -->
+    <script>
+        load = true
+        updateSystem =""
+        initializeIndex()
+        initializeModals()
+
+
+       
+    </script>
+
+  <!-- load Example-->
+
+<script type="text/javascript">
+    fetch('examples.json')
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            appendExamples(data);
+        })
+        .catch(function (err) {
+            console.log('error: ' + err);
+        });
+    examples = {}
+
+
+   
+    
+</script>
+
+</body>
+</html>

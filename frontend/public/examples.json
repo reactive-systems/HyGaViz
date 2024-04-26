@@ -1,0 +1,109 @@
+
+
+    [
+        {
+            "name": "Paper Example 1",  
+            "internalName": "paper_ex1",
+            "systems":[{
+                "name":  "A",
+                "system": {"aps": ["h", "o"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [1, 2]}, {"id": 1, "info": "", "label": [0], "successors": [3]}, {"id": 2, "info": "", "label": [], "successors": [4]}, {"id": 3, "info": "", "label": [1], "successors": [0]}, {"id": 4, "info": "", "label": [1], "successors": [0]}]}
+            },{
+                "name":  "B",
+                "system":  {"aps": ["h", "o"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [1, 2]}, {"id": 1, "info": "", "label": [0], "successors": [3]}, {"id": 2, "info": "", "label": [], "successors": [4]}, {"id": 3, "info": "", "label": [1], "successors": [0]}, {"id": 4, "info": "", "label": [1], "successors": [0]}]}
+            }],
+            "mainDpa": {"aps": ["\"h\"_B", "\"o\"_A", "\"o\"_B"], "initialState": 0, "states": [{"color": 2, "edges": [{"guard": {"childs": [{"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}, {"child": {"atom": 2, "type": "atom"}, "type": "neg"}], "type": "and"}, {"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"atom": 1, "type": "atom"}, {"atom": 2, "type": "atom"}], "type": "and"}], "type": "or"}, "target": 0}, {"guard": {"childs": [{"atom": 0, "type": "atom"}, {"childs": [{"child": {"atom": 1, "type": "atom"}, "type": "neg"}, {"atom": 2, "type": "atom"}], "type": "and"}, {"childs": [{"atom": 1, "type": "atom"}, {"child": {"atom": 2, "type": "atom"}, "type": "neg"}], "type": "and"}], "type": "or"}, "target": 1}], "id": 0}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 1}], "id": 1}]},
+
+            "prefix":[{"type":"forall","name":"A"},{"type":"exists","name":"B"}],
+            "ltlformula": "G (\"o\"_A <-> \"o\"_B) & G ! \"h\"_B",
+            "prophecieDpas": [],
+            "prophecyFormula": {}
+        },
+
+
+        {
+            "name": "Paper Example 2 - UNSAT",  
+            "internalName": "paper_ex2_unsat",
+            "systems":[{
+                "name":  "A",
+                "system": {"aps": ["a"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [0, 1]}, {"id": 1, "info": "", "label": [0], "successors": [0, 1]}]}
+            },{
+                "name":  "B",
+                "system":  {"aps": ["a"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [0, 1]}, {"id": 1, "info": "", "label": [0], "successors": [0, 1]}]}
+            }],
+            "mainDpa": {"aps": ["\"a\"_B", "\"a\"_A"], "initialState": 2, "states": [{"color": 2, "edges": [{"guard": {"childs": [{"atom": 0, "type": "atom"}, {"atom": 1, "type": "atom"}], "type": "and"}, "target": 0}, {"guard": {"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"atom": 1, "type": "atom"}], "type": "and"}, "target": 1}, {"guard": {"child": {"atom": 1, "type": "atom"}, "type": "neg"}, "target": 4}], "id": 0}, {"color": 2, "edges": [{"guard": {"childs": [{"atom": 0, "type": "atom"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}, "target": 0}, {"guard": {"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}, "target": 1}, {"guard": {"atom": 1, "type": "atom"}, "target": 4}], "id": 1}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 3}], "id": 2}, {"color": 1, "edges": [{"guard": {"atom": 0, "type": "atom"}, "target": 0}, {"guard": {"child": {"atom": 0, "type": "atom"}, "type": "neg"}, "target": 1}], "id": 3}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 4}], "id": 4}]},
+
+            "prefix":[{"type":"forall","name":"A"},{"type":"exists","name":"B"}],
+            "ltlformula": "X G (\"a\"_B <->  X \"a\"_A)",
+            "prophecieDpas": [],
+            "prophecyFormula": {}
+        },
+
+        {
+            "name": "Paper Example 2 - With Prophecies",  
+            "internalName": "paper_ex2",
+            "systems":[{
+                "name":  "A",
+                "system": {"aps": ["a"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [0, 1]}, {"id": 1, "info": "", "label": [0], "successors": [0, 1]}]}
+            },{
+                "name":  "B",
+                "system":  {"aps": ["a"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [0, 1]}, {"id": 1, "info": "", "label": [0], "successors": [0, 1]}]}
+            }],
+            "mainDpa": {"aps": ["\"a\"_B", "\"a\"_A"], "initialState": 2, "states": [{"color": 2, "edges": [{"guard": {"childs": [{"atom": 0, "type": "atom"}, {"atom": 1, "type": "atom"}], "type": "and"}, "target": 0}, {"guard": {"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"atom": 1, "type": "atom"}], "type": "and"}, "target": 1}, {"guard": {"child": {"atom": 1, "type": "atom"}, "type": "neg"}, "target": 4}], "id": 0}, {"color": 2, "edges": [{"guard": {"childs": [{"atom": 0, "type": "atom"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}, "target": 0}, {"guard": {"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}, "target": 1}, {"guard": {"atom": 1, "type": "atom"}, "target": 4}], "id": 1}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 3}], "id": 2}, {"color": 1, "edges": [{"guard": {"atom": 0, "type": "atom"}, "target": 0}, {"guard": {"child": {"atom": 0, "type": "atom"}, "type": "neg"}, "target": 1}], "id": 3}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 4}], "id": 4}]},
+
+            "prefix":[{"type":"forall","name":"A"},{"type":"exists","name":"B"}],
+            "ltlformula": "X G (\"a\"_B <->  X \"a\"_A)",
+            "prophecieDpas": 
+                [{"name":"P1","dpa": {"aps": ["\"a\"_A"], "initialState": 1, "states": [{"color": 1, "edges": [{"guard": {"atom": 0, "type": "atom"}, "target": 2}, {"guard": {"child": {"atom": 0, "type": "atom"}, "type": "neg"}, "target": 3}], "id": 0}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 0}], "id": 1}, {"color": 2, "edges": [{"guard": {"type": "true"}, "target": 2}], "id": 2}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 3}], "id": 3}]}}],
+            "prophecyFormula": {"P1": "X \"a\"_A "}
+        },
+
+        {
+            "name": "Simple Example 1",  
+            "internalName": "simple_ex1",
+            "systems":[{
+                "name":  "A",
+                "system":{"aps": ["a", "b"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [2]}, {"id": 1, "info": "", "label": [1], "successors": [1, 2]}, {"id": 2, "info": "", "label": [0], "successors": [3]}, {"id": 3, "info": "", "label": [0, 1], "successors": [0, 3]}]}
+            },{
+                "name":  "B",
+                "system": {"aps": ["a", "b"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [1]}, {"id": 1, "info": "", "label": [1], "successors": [1, 2]}, {"id": 2, "info": "", "label": [0], "successors": [3]}, {"id": 3, "info": "", "label": [0, 1], "successors": [0, 3]}]}
+            }],
+            "mainDpa": {"aps": ["\"a\"_A", "\"b\"_B"], "initialState": 0, "states": [{"color": 2, "edges": [{"guard": {"childs": [{"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}, {"childs": [{"atom": 0, "type": "atom"}, {"atom": 1, "type": "atom"}], "type": "and"}], "type": "or"}, "target": 0}, {"guard": {"childs": [{"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"atom": 1, "type": "atom"}], "type": "and"}, {"childs": [{"atom": 0, "type": "atom"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}], "type": "or"}, "target": 1}], "id": 0}, {"color": 1, "edges": [{"guard": {"type": "true"}, "target": 1}], "id": 1}]},
+
+            "prefix":[{"type":"forall","name":"A"},{"type":"exists","name":"B"}],
+            "ltlformula": "G (\"a\"_A <-> \"b\"_B)",
+            "prophecieDpas": [],                
+            "prophecyFormula": {}
+        },
+
+        
+        { 
+            "name": "Simple Example 2",
+            "internalName": "simple_ex2", 
+            "systems":[{"name":"A","system":{"aps":["a","b"],"initialState":2,"states":[{"id":0,"info":"","label":[],"successors":[1]},{"id":1,"info":"","label":[1],"successors":[1,2]},{"id":2,"info":"","label":[0],"successors":[3]},{"id":3,"info":"","label":[0,1],"successors":[0,3]}]}},{"name":"B","system":{"aps":["a","b"],"initialState":0,"states":[{"id":0,"info":"","label":[],"successors":[1]},{"id":1,"info":"","label":[1],"successors":[1,2]},{"id":2,"info":"","label":[0],"successors":[3]},{"id":3,"info":"","label":[0,1],"successors":[0,3]}]}}],
+            "mainDpa":{"aps":["\"a\"_A","\"b\"_B"],"initialState":0,"states":[{"color":2,"edges":[{"guard":{"childs":[{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"atom":1,"type":"atom"}],"type":"and"},{"childs":[{"atom":0,"type":"atom"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"}],"type":"or"},"target":0},{"guard":{"childs":[{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},{"childs":[{"atom":0,"type":"atom"},{"atom":1,"type":"atom"}],"type":"and"}],"type":"or"},"target":1}],"id":0},{"color":1,"edges":[{"guard":{"type":"true"},"target":1}],"id":1}]},
+            "prefix":[{"type":"forall","name":"A"},{"type":"exists","name":"B"}],
+            "ltlformula": "G (\"a\"_A <-> !\"a\"_B)",
+            "prophecieDpas": [],
+            "prophecyFormula": {}
+        },
+         {
+            "name": "Simple Example 3",
+            "internalName": "simple_ex3", 
+            "systems":[{"name":"A","system":{"aps":["a","b"],"initialState":0,"states":[{"id":0,"info":"","label":[],"successors":[2]},{"id":1,"info":"","label":[1],"successors":[1,2]},{"id":2,"info":"","label":[0],"successors":[3]},{"id":3,"info":"","label":[0,1],"successors":[0,3]}]}},{"name":"B","system":{"aps":["a","b"],"initialState":2,"states":[{"id":0,"info":"","label":[],"successors":[1]},{"id":1,"info":"","label":[1],"successors":[1,2]},{"id":2,"info":"","label":[0],"successors":[3]},{"id":3,"info":"","label":[0,1],"successors":[0,3]}]}}],
+            "mainDpa":{"aps":["\"a\"_A","\"b\"_B"],"initialState":2,"states":[{"color":2,"edges":[{"guard":{"childs":[{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},{"childs":[{"atom":0,"type":"atom"},{"atom":1,"type":"atom"}],"type":"and"}],"type":"or"},"target":0},{"guard":{"childs":[{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"atom":1,"type":"atom"}],"type":"and"},{"childs":[{"atom":0,"type":"atom"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"}],"type":"or"},"target":3}],"id":0},{"color":1,"edges":[{"guard":{"type":"true"},"target":0}],"id":1},{"color":1,"edges":[{"guard":{"type":"true"},"target":1}],"id":2},{"color":1,"edges":[{"guard":{"type":"true"},"target":3}],"id":3}]},
+            "prefix":[{"type":"forall","name":"A"},{"type":"exists","name":"B"}],
+            "ltlformula": "X X G (\"a\"_A <-> \"b\"_B)",
+            "prophecieDpas":[],
+            "prophecyFormula": {}
+        },
+        {
+            "name": "Simple Example 4",
+            "internalName": "simple_ex4", 
+            "systems":[{"name":"A","system":{"aps":["a","b"],"initialState":0,"states":[{"id":0,"info":"","label":[],"successors":[2]},{"id":1,"info":"","label":[1],"successors":[1,2]},{"id":2,"info":"","label":[0],"successors":[3]},{"id":3,"info":"","label":[0,1],"successors":[0,3]}]}},{"name":"B","system":{"aps":["a","b"],"initialState":0,"states":[{"id":0,"info":"","label":[],"successors":[1]},{"id":1,"info":"","label":[1],"successors":[1,2]},{"id":2,"info":"","label":[0],"successors":[3]},{"id":3,"info":"","label":[0,1],"successors":[0,3]}]}}],
+            "mainDpa":{"aps":["\"a\"_A","\"b\"_B"],"initialState":0,"states":[{"color":2,"edges":[{"guard":{"childs":[{"atom":0,"type":"atom"},{"atom":1,"type":"atom"}],"type":"and"},"target":0},{"guard":{"childs":[{"atom":0,"type":"atom"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":1},{"guard":{"child":{"atom":0,"type":"atom"},"type":"neg"},"target":2}],"id":0},{"color":2,"edges":[{"guard":{"childs":[{"atom":0,"type":"atom"},{"atom":1,"type":"atom"}],"type":"and"},"target":0},{"guard":{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"atom":1,"type":"atom"}],"type":"and"},"target":2},{"guard":{"childs":[{"atom":0,"type":"atom"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":3},{"guard":{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":4}],"id":1},{"color":1,"edges":[{"guard":{"childs":[{"atom":0,"type":"atom"},{"atom":1,"type":"atom"}],"type":"and"},"target":0},{"guard":{"childs":[{"atom":0,"type":"atom"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":1},{"guard":{"child":{"atom":0,"type":"atom"},"type":"neg"},"target":2}],"id":2},{"color":1,"edges":[{"guard":{"atom":1,"type":"atom"},"target":0},{"guard":{"childs":[{"atom":0,"type":"atom"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":3},{"guard":{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":4}],"id":3},{"color":1,"edges":[{"guard":{"childs":[{"atom":0,"type":"atom"},{"atom":1,"type":"atom"}],"type":"and"},"target":0},{"guard":{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"atom":1,"type":"atom"}],"type":"and"},"target":2},{"guard":{"childs":[{"atom":0,"type":"atom"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":3},{"guard":{"childs":[{"child":{"atom":0,"type":"atom"},"type":"neg"},{"child":{"atom":1,"type":"atom"},"type":"neg"}],"type":"and"},"target":4}],"id":4}]},
+            "prefix":[{"type":"forall","name":"A"},{"type":"exists","name":"B"}],
+            "ltlformula": "G F \"a\"_A & G F \"b\"_B",
+            "prophecieDpas":[],
+            "prophecyFormula": {}
+        }
+    ]

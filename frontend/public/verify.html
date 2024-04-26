@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HyGaViz</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/cytoscape@3.26.0/dist/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.14.7/dist/umd/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape-popper@1.0.4/cytoscape-popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@4.0.1/umd/index.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+    <script src="./buttonHandler.js"></script>
+    <script src="./graph.js"></script>
+    <script src="./drawSystem.js"></script>
+    <script src="./drawLTL.js"></script>
+    <script src="./loadData.js"></script>
+    <script src="./modal.js"></script>
+
+    <script src="./automaton.js"></script>
+    <script src="./verificationTask.js"></script>
+    <script src="./verificationHelpFunctions.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="card.css">
+    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script type="text/javascript" id="mathjax"
+    src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML" >
+    </script>
+    <script defer type="text/x-mathjax-config" >
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']],
+                            displayMath: [['\\[','\\]'], ['$$','$$']]}});
+    </script>
+</head>
+
+<body>
+    
+    <!-- buttons --> 
+   
+
+    <div class="headline">
+        <div class="headlineFirstDiv" >
+            <button class="whitebutton blue-detailbutton"  id="newVerificationTask" title="return to start page to enter a new Verification Task">
+                <i class="fa-solid fa-house"></i>
+                New Verification Task
+            </button>
+            <button class="whitebutton blue-detailbutton" id="modifyExample" >
+                <i class="fa-solid fa-pencil"></i>
+                Modify Task
+            </button>
+         </div>
+    </div>
+
+
+    <!-- Load Example Modal -->
+    <div id="violatingProphecyModal" class="modal" >
+        <!-- Modal content -->
+        <div class="modal-content" >
+            <!-- Modal header -->
+            <div class="modal-header red-modal-header">
+                <h3>Violation of previously chosen prophecies!</h3>
+            </div>
+            <!-- Modal body -->
+            <div id="contentViolatingProphcyModal" class="modal-body">
+                <p>Return to a previous game position:</p>   
+            </div>
+        </div>
+    </div>
+      
+
+    <div class="mainContent">
+        <div class="row">
+            <div class="col-md-3" >
+                <div class="view-container">
+                    <!-- DPA Card -->
+                    <div class="card" >
+                        <div id="cart-header1" class="card-header">
+                            <li class="cardTitle" id="DPACardTitle" >Determinstic Parity Automaton</li>
+                        </div>
+                        <div id="LTLautomaton" class="LTLAutomaton"> 
+                        </div>
+                        <!-- <div id="tableDPA"></div> -->
+                    </div>
+                </div>
+
+                <div  class="view-container">
+                    <!-- Information Card -->
+                    <div class="card">
+                        <div  class="card-header">
+                            <li class="cardTitle" id="tableDPATitle" >Formula
+                            </li>
+                        </div>
+                        <div style="overflow-x:auto; display:block; justify-content: center;" id="LTLformula"></div>
+                    </div>
+                </div>
+
+                <div class="view-container explainationTable" id="explainationTableDPA">
+                    <!-- Information Card -->
+                    <div class="card">
+                        <div  class="card-header">
+                            <li class="cardTitle">Edge Legend for Automaton</li>
+                        </div>
+                        <div style="overflow-x:auto;" id="tableDPA"></div>
+                        
+                    </div>
+                </div>
+
+                <div class="view-container">
+                    <!-- Information Card -->
+                    <div class="card">
+                        <div  class="card-header">
+                            <li class="cardTitle" >Information</li>
+                        </div>
+                        <div style="overflow-x:auto;" id="table_div"></div>
+                        
+                    </div>
+                </div>
+            </div>
+       
+            <div class="col-md-9">
+                <div class="view-container">
+                    <!-- Universally-Quantified Systems Card -->
+                    <div class= "card">
+                        <div class="card-header" >
+                            <li class="cardTitle">Universally-Quantified Systems</li>
+                        </div>
+                        <div class= "systemContainer" id="systemsUniversal" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="view-container prophecyDiv" id="prophecyDiv">
+                    <!-- Systems Card -->
+                   <div class="card" >
+                       <!-- Systems Header -->
+                       <div class="card-header" >
+                           <div class="cardTitle">Prophecies</div>
+
+                       </div>
+
+                       <!-- Systems Content -->
+                       <div class="flex-container" id="prophecies" ></div>
+                   </div>
+               </div>
+                
+                <div class="view-container">
+                    <!-- Existentially-Quantified Systems Card -->
+                    <div class= "card">
+                        <div class="card-header">
+                            <li class="cardTitle"> Existentially-Quantified Systems</li>
+                        </div>
+                        <div class= "systemContainer" id="systemsExistential">
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+   
+    
+
+    <script >
+        transition_systems = [];
+        transition_system_dict = {};
+        idForSystems = 0
+        dpa = "";
+        prophecies = {} // {name -> (ltl,automat)}
+        prophecyCounter = 0
+         // {name -> {0,1,2}}  0:undefined, 1: true, 2:false
+         setUpVerify()
+    </script>
+    <script>
+        const modifyExampleButton= document.getElementById("modifyExample") 
+        modifyExampleButton.addEventListener('click',modifyExample);   
+        const newVerificationTaskButton=  document.getElementById("newVerificationTask")
+        newVerificationTaskButton.addEventListener('click',newVerificationTask);   
+    </script>
+
+
+</body>
+</html>
