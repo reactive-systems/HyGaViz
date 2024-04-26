@@ -1,0 +1,20 @@
+{
+    "systems": 
+        [
+            {
+                "name": "A",
+                "system": {"aps": ["a"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [0, 1]}, {"id": 1, "info": "", "label": [0], "successors": [0, 1]}]}
+            }, 
+            {
+                "name": "B",
+                "system": {"aps": ["a"], "initialState": 0, "states": [{"id": 0, "info": "", "label": [], "successors": [0, 1]}, {"id": 1, "info": "", "label": [0], "successors": [0, 1]}]}
+            }
+        ],
+
+    "mainDpa":
+        {"aps": ["\"a\"_A", "\"a\"_B"], "initialState": 0, "states": [{"color": 2, "edges": [{"guard": {"childs": [{"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}, {"childs": [{"atom": 0, "type": "atom"}, {"atom": 1, "type": "atom"}], "type": "and"}], "type": "or"}, "target": 0}, {"guard": {"childs": [{"childs": [{"child": {"atom": 0, "type": "atom"}, "type": "neg"}, {"atom": 1, "type": "atom"}], "type": "and"}, {"childs": [{"atom": 0, "type": "atom"}, {"child": {"atom": 1, "type": "atom"}, "type": "neg"}], "type": "and"}], "type": "or"}, "target": 1}], "id": 0}, {"color": 1, "edges": [{"guard": {"childs": [{"childs": [], "type": "and"}], "type": "or"}, "target": 1}], "id": 1}]},
+
+    "prefix": [{"type":"forall", "name":"A"}, {"type":"exists", "name":"B"}],
+
+    "prophecieDpas": []
+}
