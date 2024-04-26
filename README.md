@@ -4,11 +4,30 @@ This repository contains HyGaViz - a verification and visualization tool for hyp
 Clone this repository and **initialize all submodules** by running
 
 ```shell
-git clone https://github.com/ravenbeutner/HyGaViz
+git clone https://github.com/reactive-systems/HyGaViz
 cd HyGaViz
 git submodule init
 git submodule update
 ```
+
+## Overview
+HyGaViz supports the exploration of certificates for the satisfaction of $\forall^*\exists^*$ HyperLTL formulas. 
+On the initial page (see below), the user can add (possibly different) finite state transition systems, and define the LTL body of the HyperLTL formula. 
+Note how the name, the order, and the quantification type of the system implicitly define the quantifier prefix of the HyperLTL formula. 
+The buttons above each system, allow the user to change the quantification type, change the system (via a text-based format), change the order of the systems, and remove the system. 
+The LTL body is converted to a deterministic parity automaton (DPA) displayed on the top left.
+
+![Initial HyGaViz gage](start.jpg)
+
+Upon clicking the ``Verify'' button, HyGaViz attempts to generate a strategy that proves the satisfaction of the HyperLTL formula. 
+If a strategy is found, the user is directed to the visualization page (see below). 
+Here, HyGaViz marks the current state of each system -- separated into user-controlled universally quantified systems (top right) and strategy-controlled existentially quantified ones (bottom right) -- and displays the current state of the DPA (top left) (in green).
+The user takes the role of the $\forall$-player and, in each step, determines successor states for all universally quantified executions. 
+Once successor states for all universally quantified systems are confirmed (by _clicking_), HyGaViz automatically updates existentially quantified systems (and the DPA state), based on the internally computed strategy. 
+Moreover, HyGaViz highlights the next states (in yellow) when the user _hovers_ over possible successor states for the universally quantified systems. 
+Using the information tab in the bottom left, the user can jump to previous situations and explore the reaction of the strategy to different choices for the universally quantified system.
+
+![HyGaViz simulation page](game.jpg)
 
 ## Structure 
 
@@ -35,7 +54,7 @@ To build and run HyGaViz, you need the following dependencies:
 - [oink](https://github.com/trolando/oink) 
 - [Node.js](https://nodejs.org/en) (tested with version 21.7.3)
 
-Install the .NET 8 SDK (see [here](https://dotnet.microsoft.com/en-us/download) for details) and Node.js (see [here](https://nodejs.org/en/download) for details)
+Install the .NET 8 SDK (see [here](https://dotnet.microsoft.com/en-us/download) for details) and Node.js (see [here](https://nodejs.org/en/download) for details).
 Download and build _spot_ (details can be found [here](https://spot.lrde.epita.fr/)). 
 Clone and build _oink_ (details can be found [here](https://github.com/trolando/oink)). 
 You can place the _spot_ and _oink_ executables in any location of your choosing, and provide HyGaViz with the _absolute_ path (see details below).
@@ -107,7 +126,7 @@ cd ..
 
 After the backend and frontend have been set up, you can start HyGaViz by running
 
-```
+```shell
 cd frontend 
 npm start
 ```
