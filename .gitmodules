@@ -1,0 +1,6 @@
+[submodule "backend/src/FsOmegaLib"]
+	path = backend/src/FsOmegaLib
+	url = https://github.com/ravenbeutner/FsOmegaLib.git
+[submodule "backend/src/ParityGameLib"]
+	path = backend/src/ParityGameLib
+	url = https://github.com/ravenbeutner/ParityGameLib.git
